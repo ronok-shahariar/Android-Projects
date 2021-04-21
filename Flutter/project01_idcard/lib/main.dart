@@ -21,10 +21,17 @@ class IdCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/RonokCV.jpg'),
-              radius:90.0,
+            Center(
+              child:CircleAvatar(
+                backgroundImage: AssetImage('assets/RonokCV.jpg'),
+                radius:80.0,
+              ),
             ),
+            Divider(
+              height: 60.0,
+              color: Colors.grey[800],
+            ),
+
             Text(
               'Name',
               style: TextStyle(
@@ -36,10 +43,10 @@ class IdCard extends StatelessWidget {
             Text(
               'Md. Shahariar Hassan Ronok',
               style: TextStyle(
-                color: Colors.amberAccent[200],
-                letterSpacing: 2.0,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold
+                  color: Colors.amberAccent[200],
+                  letterSpacing: 2.0,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold
               ),
             ),
             SizedBox(height: 10.0),
@@ -119,8 +126,8 @@ class IdCard extends StatelessWidget {
             Text(
               'Department of Electrical & Computer Engineering',
               style: TextStyle(
-                color: Colors.grey[200],
-                letterSpacing: 2.0,
+                  color: Colors.grey[200],
+                  letterSpacing: 2.0,
                   fontSize: 13.0,
                   fontWeight: FontWeight.bold
               ),
@@ -129,8 +136,8 @@ class IdCard extends StatelessWidget {
             Text(
               'Rajshshi University of Engineering and Technology',
               style: TextStyle(
-                color: Colors.grey[200],
-                letterSpacing: 2.0,
+                  color: Colors.grey[200],
+                  letterSpacing: 2.0,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold
               ),
