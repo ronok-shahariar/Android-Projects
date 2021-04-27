@@ -3,6 +3,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 //my imports
 import 'package:flutter_ecom/components/horizontal_listview.dart';
 import 'package:flutter_ecom/components/products.dart';
+import 'package:flutter_ecom/pages/cart.dart';
 
 
 void main() {
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget image_carousel = new Container(
-      height: 300.0,
+      height: 280.0,
       child: new Carousel(
         boxFit: BoxFit.cover,
         images: [
@@ -35,7 +36,8 @@ class _HomePageState extends State<HomePage> {
 //        animationCurve: Curves.fastLinearToSlowEaseIn,
 //        animationDuration: Duration(microseconds: 100),
         dotSize: 4.0,
-        dotColor: Colors.pink,
+        //dotColor: Colors.pink[900],
+        dotBgColor: Colors.transparent,
         indicatorBgPadding: 2.0,
       ),
     );
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       appBar: new AppBar(
         elevation: 0.2,
         backgroundColor: Colors.red,
-        centerTitle: true,
+        //centerTitle: false,
         title: Text('Fashapp'),
         actions: [
           new IconButton(
@@ -57,7 +59,9 @@ class _HomePageState extends State<HomePage> {
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {})
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));
+              })
         ],
       ),
       drawer: new Drawer(
@@ -74,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
               decoration: new BoxDecoration(
-                  color: Colors.pinkAccent,
+                  color: Colors.red,
               ),
             ),
             //  body
@@ -100,10 +104,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));
+              },
               child: ListTile(
-                title: Text('Categories'),
-                leading: Icon(Icons.dashboard, color: Colors.red),
+                title: Text('Shopping Cart'),
+                leading: Icon(Icons.shopping_cart, color: Colors.red),
               ),
             ),
             InkWell(
