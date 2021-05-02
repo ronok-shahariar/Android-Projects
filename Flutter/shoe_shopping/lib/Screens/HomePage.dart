@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shoe_shopping/Component/defaultElements.dart';
-import 'package:shoe_shopping/Models/ShoelistModel.dart';
 import 'package:shoe_shopping/Models/categoriesModel.dart';
+import 'package:shoe_shopping/Screens/itemsCard.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,9 +28,20 @@ class _HomePageState extends State<HomePage> {
               ),
               buildCategoriesSection(context),
               SizedBox(
-                height: 20,
+                height: 5,
               ),
-              builditemCard(),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: GridView.builder(
+                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemBuilder: (context, intext) => ItemCards(),
+                  ),
+                ),
+              )
             ],
           ),
         ],
@@ -168,101 +179,6 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-    );
-  }
-
-  builditemCard() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: Container(
-            height: 220,
-            width: 150,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                    color: DefaultElements.knavbariconcolor,
-                    offset: Offset(0, -1),
-                    blurRadius: 10)
-              ],
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 8, right: 8, left: 8),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: DefaultElements.ksecondrycolor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "30%",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5, right: 5, left: 5),
-                        child: Container(
-                          height: 30,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/heart.svg",
-                            height: 20,
-                            color: DefaultElements.knavbariconcolor,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: shoeListModel[0].showcasebgcolor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            color: shoeListModel[0].showcasebgcolor,
-                            shape: BoxShape.circle,
-
-                            // Border
-                            // TODO :
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
