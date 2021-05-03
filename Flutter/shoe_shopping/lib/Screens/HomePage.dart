@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shoe_shopping/Component/defaultElements.dart';
+import 'package:shoe_shopping/Models/ShoelistModel.dart';
 import 'package:shoe_shopping/Models/categoriesModel.dart';
 import 'package:shoe_shopping/Screens/itemsCard.dart';
 
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DefaultElements.kdefaultbgcolor,
+      bottomNavigationBar: BottomNavBar(),
       body: Stack(
         children: [
           Column(
@@ -34,11 +36,15 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: GridView.builder(
+                    itemCount: shoeListModel.length,
                     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.75,
                     ),
-                    itemBuilder: (context, intext) => ItemCards(),
+                    itemBuilder: (context, index) => ItemCards(
+                      shoeListModel: shoeListModel[index],
+                      index: index,
+                    ),
                   ),
                 ),
               )
@@ -178,6 +184,105 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class BottomNavBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 70,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: DefaultElements.knavbariconcolor,
+              blurRadius: 10,
+              offset: Offset(0, -1),
+            )
+          ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SvgPicture.asset(
+            "assets/icons/home.svg",
+            height: 30,
+            color: DefaultElements.kprimarycolor,
+          ),
+          SvgPicture.asset(
+            "assets/icons/heart.svg",
+            height: 30,
+            color: DefaultElements.knavbariconcolor,
+          ),
+          Stack(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  print("Cart");
+                },
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: DefaultElements.kprimarycolor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: DefaultElements.knavbariconcolor,
+                        offset: Offset(0, -1),
+                        blurRadius: 8.0,
+                      )
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(18),
+                    child: SvgPicture.asset(
+                      "assets/icons/cart.svg",
+                      color: DefaultElements.ksecondrycolor,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 45,
+                bottom: 45,
+                top: 0,
+                right: 0,
+                child: Container(
+                  height: 18,
+                  width: 18,
+                  decoration: BoxDecoration(
+                    color: DefaultElements.kdefaultredcolor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "2",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SvgPicture.asset(
+            "assets/icons/list.svg",
+            height: 30,
+            color: DefaultElements.knavbariconcolor,
+          ),
+          SvgPicture.asset(
+            "assets/icons/person.svg",
+            height: 30,
+            color: DefaultElements.knavbariconcolor,
+          ),
+        ],
       ),
     );
   }
