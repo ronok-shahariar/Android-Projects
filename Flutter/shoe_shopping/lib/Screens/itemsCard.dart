@@ -65,7 +65,7 @@ class ItemCards extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "30%",
+                                    "${shoeListModel.persentage}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
@@ -127,9 +127,12 @@ class ItemCards extends StatelessWidget {
                         top: 20,
                         right: 5,
                         left: 0,
-                        child: Image.asset(
-                          "${shoeListModel.shoeimage}",
-                          height: 60,
+                        child: Hero(
+                          tag: "${shoeListModel.shoeimage}",
+                          child: Image.asset(
+                            "${shoeListModel.shoeimage}",
+                            height: 60,
+                          ),
                         ),
                       ),
                     ],

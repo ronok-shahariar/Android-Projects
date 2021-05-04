@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoe_shopping/Component/defaultElements.dart';
+import 'package:shoe_shopping/Models/ShoelistModel.dart';
 
 class DetailScreen extends StatefulWidget {
   final String shoeimage;
@@ -31,6 +32,15 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  int selectedIndex = 0;
+  int selectedColorIndex = 0;
+  List<String> shoeShize = [
+    "UK 6",
+    "UK 7",
+    "UK 8",
+    "UK 9",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          "30%",
+                          "${widget.persentage}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
@@ -60,8 +70,84 @@ class _DetailScreenState extends State<DetailScreen> {
                 height: 5,
               ),
               buildShoeShowcase(context),
+              Expanded(
+                child: Container(),
+              ),
+              buildPriceSelectionArea(context),
             ],
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 90,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: DefaultElements.knavbariconcolor,
+                      blurRadius: 2,
+                      offset: Offset(0, -1),
+                    )
+                  ]),
+              child: Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    Text(
+                      "${widget.price}",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: FlatButton(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: Color(0xffF7F7F7),
+                        onPressed: () {},
+                        child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/icons/cart.svg",
+                                height: 20,
+                                color: DefaultElements.kprimarycolor,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "Add To Cart",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: DefaultElements.kprimarycolor),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -131,13 +217,246 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  buildShoeShowcase(context) {
+  buildShoeShowcase(BuildContext context) {
     return Stack(
       children: [
-        Container(),
-
-        /// 26:11
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 2.75,
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: widget.showcasebgcolor,
+                width: 2,
+              )),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 2.75,
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: widget.showcasebgcolor,
+                    width: 2,
+                  )),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2.75,
+                  decoration: BoxDecoration(
+                    color: widget.showcasebgcolor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 2.75,
+                      decoration: BoxDecoration(
+                        color: widget.lightShowcasebgcolor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0,
+          right: 80,
+          left: 50,
+          bottom: 0,
+          child: Hero(
+            tag: widget.shoeimage,
+            child: Image.asset(
+              "${widget.shoeimage}",
+              height: 100,
+            ),
+          ),
+        )
       ],
+    );
+  }
+
+  buildPriceSelectionArea(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 2.3,
+      decoration: BoxDecoration(
+          color: Color(0xffF7F7F7),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: DefaultElements.knavbariconcolor,
+                offset: Offset(0, -1),
+                blurRadius: 2),
+          ]),
+      child: Padding(
+        padding: EdgeInsets.only(top: 30, right: 30, left: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${widget.shoeName}",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: DefaultElements.kprimarycolor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      size: 30,
+                      color: Color(0xffFDD446),
+                    ),
+                    Text(
+                      "${widget.rating}",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Built for natural motion, the Nike Flex Shoes",
+              style: TextStyle(
+                fontSize: 18,
+                color: DefaultElements.kprimarycolor,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Text(
+                  "Size:",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 1.35,
+                  child: Center(
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: shoeShize.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 13, vertical: 8),
+                            child: FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              },
+                              minWidth: 50,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              color: selectedIndex == index
+                                  ? DefaultElements.ksecondrycolor
+                                  : Colors.white,
+                              child: Text(
+                                shoeShize[index],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Text(
+                  "Available Color:",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Center(
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: 4,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 2, vertical: 12),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedColorIndex = index;
+                                  });
+                                },
+                                child: Container(
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: selectedColorIndex == index
+                                        ? DefaultElements
+                                            .kshoerepplecolorOptions[index]
+                                        : Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: DefaultElements
+                                            .kshoecolorOptions[index],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                        }),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
