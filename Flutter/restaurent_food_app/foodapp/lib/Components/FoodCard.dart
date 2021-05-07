@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/Models/foodCardModel.dart';
+import 'package:foodapp/constants.dart';
 
 class FoodCard extends StatelessWidget {
   final int index;
@@ -46,8 +47,65 @@ class FoodCard extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
             ),
-
-// TODO: 20:00
+            SizedBox(
+              height: 5,
+            ),
+            Divider(
+              height: 15,
+              color: Colors.grey[400],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Constants.headerColor,
+                  size: 20,
+                ),
+                Text(
+                  foodCardModel[index].ratings,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                Text(
+                  foodCardModel[index].numberOfRatings,
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Icon(
+                  Icons.timer,
+                  color: Colors.grey[400],
+                  size: 20,
+                ),
+                Text(
+                  foodCardModel[index].times,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                Icon(
+                  Icons.monetization_on,
+                  color: Colors.grey[400],
+                  size: 20,
+                ),
+                Text(
+                  foodCardModel[index].deliveryCharges,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
